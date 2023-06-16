@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="search">
+            <input type="text" placeholder="ENTER CITY NAME">
+            <button > <img src="aani.png" alt="weather"></button>
+    </div>
+    <div class="weather">
+        <img src="rain2.jpg"class="icon"width="300px" alt="">
+          <h1 class="celcius">22°C</h1>
+          <h2 class="city">Bhadrak</h2>
+          <div class="bdk">
+            <div class="cbl">
+                <img src="himidity.png" alt="eqr">
+            </div>
+            <div class="humidity">
+            <p class="humidityp">20%</p>
+            <p>humidity</p>
+            </div>
+            <div class="ctc">
+                <img src="wind.jpg" alt="">
+            </div>
+            <div class="wind">
+            <p class="winds">20k/h</p>
+            <p>wind</p>
+            </div>
+          </div>
+    </div>
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const searchInput = document.querySelector('.search input')
+    const searchBtn = document.querySelector('.search button');
+const getweather=async ()=>{
+    const value =searchInput.value || "cuttack"
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=68fa753029e9d271b891257b2a4c01cd&units=metric`);
+    const data = await res.json();
+ console.log(data);
+ console.log(searchInput)
+
+ document.querySelector('.celcius').innerHTML=Math.round(data.main.temp)+" °C";
+ document.querySelector('.city').innerHTML= data.name;
+ document.querySelector('.humidityp').innerHTML=Math.round(data.main.humidity)+" %";
+ document.querySelector('.winds').innerHTML=Math.round(data.wind.speed)+"km/h";
+ 
+}
+
+
+
+
+
+const getweatherAuto= async ()=>{
+    
+
+
+window.navigator.geolocation.getCurrentPosition(async (position)=>{const lat =position.coords.latitude; const lan=position.coords.longitude
+
+
+
+
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lan}&appid=68fa753029e9d271b891257b2a4c01cd&units=metric`);
+    const data = await res.json();
+ console.log(data);
+ console.log(searchInput)
+
+ document.querySelector('.celcius').innerHTML=Math.round(data.main.temp)+" °C";
+ document.querySelector('.city').innerHTML= data.name;
+ document.querySelector('.humidityp').innerHTML=Math.round(data.main.humidity)+" %";
+ document.querySelector('.winds').innerHTML=Math.round(data.wind.speed)+"km/h"; 
+
+
+},(err)=>console.log(err))
+
+console.log(lat,lan)
+  
+ 
+}
+document.addEventListener('DOMContentLoaded', function() {
+    getweatherAuto()
+}, false);
+
+
+ searchBtn.addEventListener('click',() =>{
+    console.log('search')
+    getweather();
+ })
+
+
+</script>
+    
+</body>
+</html>                                                               
